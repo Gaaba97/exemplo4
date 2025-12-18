@@ -1,1055 +1,1142 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquitetura & Design - Escritório de Arquitetura</title>
+    <title>Portfólio Digital | Sofia Mendes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Reset e estilos gerais */
+        /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         :root {
-            --primary: #2C3E50;
-            --secondary: #E67E22;
-            --accent: #7F8C8D;
-            --light: #F9F9F9;
-            --dark: #1A252F;
-            --text: #333333;
-            --text-light: #666666;
-            --gray: #ECF0F1;
-            --border: #DDDDDD;
-            --gold: #D4AF37;
+            --cor-primaria: #6C63FF;
+            --cor-secundaria: #4D44B5;
+            --cor-destaque: #FF6584;
+            --cor-texto: #333333;
+            --cor-texto-claro: #666666;
+            --cor-fundo: #FFFFFF;
+            --cor-fundo-suave: #F8F9FF;
+            --cor-borda: #EAEAFF;
+            --sombra: 0 8px 20px rgba(108, 99, 255, 0.08);
+            --transicao: all 0.3s ease;
         }
-        
+
         html {
             scroll-behavior: smooth;
         }
-        
+
         body {
-            line-height: 1.7;
-            color: var(--text);
-            background-color: var(--light);
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
+            color: var(--cor-texto);
+            background-color: var(--cor-fundo);
+            line-height: 1.6;
             overflow-x: hidden;
         }
-        
-        h1, h2, h3, h4, h5 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary);
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
+
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 20px;
         }
-        
+
         section {
             padding: 100px 0;
         }
-        
-        p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            color: var(--text-light);
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 16px 36px;
-            background-color: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 0;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn:after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: -100%;
-            background-color: var(--secondary);
-            transition: left 0.3s ease;
-            z-index: 1;
-        }
-        
-        .btn span {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .btn:hover:after {
-            left: 0;
-        }
-        
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-outline:after {
-            background-color: var(--primary);
-        }
-        
-        .btn-outline:hover {
-            color: white;
-        }
-        
-        .btn-secondary {
-            background-color: var(--secondary);
-        }
-        
-        .btn-secondary:after {
-            background-color: var(--primary);
-        }
-        
-        /* Header e Navegação */
-        header {
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 0;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
+
+        h1, h2, h3, h4 {
             font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
-        }
-        
-        .logo span {
-            color: var(--secondary);
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 40px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-            position: relative;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--secondary);
-            transition: width 0.3s;
-        }
-        
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-        
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-        
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--primary);
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            padding: 200px 0 150px;
-            position: relative;
-            text-align: center;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 25px;
-            color: white;
             line-height: 1.2;
-            letter-spacing: 1px;
+            margin-bottom: 20px;
         }
-        
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 300;
+
+        h1 {
+            font-size: 3.5rem;
         }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-        
-        /* Sobre */
-        .about {
-            background-color: var(--light);
-        }
-        
-        .about-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 60px;
-        }
-        
-        .about-text {
-            max-width: 800px;
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .about h2 {
+
+        h2 {
             font-size: 2.8rem;
-            margin-bottom: 25px;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--cor-primaria);
             position: relative;
-            display: inline-block;
         }
-        
-        .about h2:after {
+
+        h2:after {
             content: '';
             position: absolute;
             width: 80px;
-            height: 2px;
+            height: 4px;
+            background: var(--cor-destaque);
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: var(--secondary);
+            border-radius: 2px;
         }
-        
-        .architects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-            width: 100%;
-            max-width: 1000px;
+
+        h3 {
+            font-size: 1.8rem;
         }
-        
-        .architect {
-            text-align: center;
-            background-color: white;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
-            border-top: 4px solid var(--secondary);
-        }
-        
-        .architect:hover {
-            transform: translateY(-10px);
-        }
-        
-        .architect-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 25px;
-            border: 5px solid var(--gray);
-        }
-        
-        .architect-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .architect h3 {
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-        }
-        
-        .architect p {
-            color: var(--secondary);
-            font-weight: 500;
+
+        p {
             margin-bottom: 20px;
-        }
-        
-        /* Serviços */
-        .services {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .services h2 {
-            color: white;
-            text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 70px;
-            position: relative;
-        }
-        
-        .services h2:after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 2px;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--secondary);
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .service-item {
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 50px 30px;
-            text-align: center;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .service-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-10px);
-        }
-        
-        .service-icon {
-            font-size: 3rem;
-            color: var(--secondary);
-            margin-bottom: 25px;
-        }
-        
-        .service-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-        
-        .service-item p {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        /* Projetos */
-        .projects {
-            background-color: var(--light);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 70px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.8rem;
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background-color: var(--secondary);
-        }
-        
-        .section-title p {
-            max-width: 600px;
-            margin: 25px auto 0;
+            color: var(--cor-texto-claro);
             font-size: 1.1rem;
         }
-        
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+
+        .btn {
+            display: inline-block;
+            background-color: var(--cor-primaria);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transicao);
+            border: 2px solid var(--cor-primaria);
+            cursor: pointer;
+            font-size: 1rem;
         }
-        
-        .project-item {
+
+        .btn:hover {
+            background-color: var(--cor-secundaria);
+            border-color: var(--cor-secundaria);
+            transform: translateY(-3px);
+            box-shadow: var(--sombra);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--cor-primaria);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--cor-primaria);
+            color: white;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* ===== HEADER & NAVIGATION ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px 0;
+            transition: var(--transicao);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--cor-primaria);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span {
+            color: var(--cor-destaque);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 40px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--cor-texto);
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: var(--transicao);
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--cor-primaria);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--cor-primaria);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--cor-primaria);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding-top: 180px;
+            background: linear-gradient(135deg, #F8F9FF 0%, #FFFFFF 100%);
             position: relative;
             overflow: hidden;
-            height: 400px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
-        
-        .project-item img {
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            color: var(--cor-texto);
+            margin-bottom: 25px;
+        }
+
+        .hero-text .destaque {
+            color: var(--cor-primaria);
+            font-weight: 800;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 90%;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-image {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-image img {
+            box-shadow: var(--sombra);
+            border-radius: 20px;
+            transition: var(--transicao);
+        }
+
+        .hero-image img:hover {
+            transform: translateY(-10px);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .sobre {
+            background-color: var(--cor-fundo-suave);
+        }
+
+        .sobre-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .sobre-text h2 {
+            text-align: left;
+        }
+
+        .sobre-text h2:after {
+            left: 0;
+            transform: none;
+        }
+
+        .skills {
+            margin-top: 40px;
+        }
+
+        .skill-item {
+            margin-bottom: 25px;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background-color: var(--cor-borda);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background-color: var(--cor-primaria);
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        .sobre-img {
+            text-align: center;
+        }
+
+        /* ===== PORTFOLIO SECTION ===== */
+        .portfolio {
+            padding-bottom: 100px;
+        }
+
+        .portfolio-filtros {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filtro-btn {
+            padding: 10px 25px;
+            background: transparent;
+            border: 2px solid var(--cor-borda);
+            border-radius: 50px;
+            color: var(--cor-texto-claro);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transicao);
+        }
+
+        .filtro-btn:hover, .filtro-btn.ativo {
+            background-color: var(--cor-primaria);
+            color: white;
+            border-color: var(--cor-primaria);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: var(--transicao);
+            background-color: white;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.15);
+        }
+
+        .portfolio-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .portfolio-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.5s ease;
         }
-        
-        .project-item:hover img {
+
+        .portfolio-item:hover .portfolio-img img {
             transform: scale(1.05);
         }
-        
-        .project-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-            padding: 30px;
-            transform: translateY(100%);
-            transition: transform 0.3s;
+
+        .portfolio-info {
+            padding: 25px;
         }
-        
-        .project-item:hover .project-overlay {
-            transform: translateY(0);
-        }
-        
-        .project-overlay h3 {
-            font-size: 1.5rem;
+
+        .portfolio-info h3 {
             margin-bottom: 10px;
-            color: white;
+            color: var(--cor-texto);
         }
-        
-        /* Contato */
-        .contact {
-            background-color: white;
+
+        .portfolio-info p {
+            font-size: 1rem;
+            margin-bottom: 15px;
         }
-        
-        .contact-container {
+
+        .portfolio-tags {
             display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background-color: var(--cor-fundo-suave);
+            color: var(--cor-primaria);
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* ===== CONTATO SECTION ===== */
+        .contato {
+            background-color: var(--cor-fundo-suave);
+        }
+
+        .contato-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 60px;
         }
-        
-        .contact-info {
-            flex: 1;
+
+        .contato-info h2 {
+            text-align: left;
         }
-        
-        .contact-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
+
+        .contato-info h2:after {
+            left: 0;
+            transform: none;
         }
-        
-        .contact-item {
+
+        .contato-detalhes {
+            margin-top: 40px;
+        }
+
+        .detalhe-item {
             display: flex;
             align-items: flex-start;
             margin-bottom: 30px;
         }
-        
-        .contact-icon {
-            font-size: 20px;
-            color: var(--secondary);
-            margin-right: 15px;
-            margin-top: 5px;
-            width: 24px;
-            text-align: center;
+
+        .detalhe-icon {
+            background-color: var(--cor-primaria);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
         }
-        
-        .contact-form {
-            flex: 1;
-            background-color: var(--light);
-            padding: 50px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+
+        .detalhe-text h4 {
+            margin-bottom: 5px;
+            color: var(--cor-texto);
         }
-        
+
+        .redes-sociais {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .rede-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: var(--cor-primaria);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transicao);
+            font-size: 1.2rem;
+        }
+
+        .rede-social:hover {
+            background-color: var(--cor-secundaria);
+            transform: translateY(-5px);
+        }
+
+        .contato-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--sombra);
+        }
+
         .form-group {
             margin-bottom: 25px;
         }
-        
+
         .form-group label {
             display: block;
-            margin-bottom: 10px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            color: var(--text);
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--cor-texto);
         }
-        
+
         .form-control {
             width: 100%;
             padding: 15px;
-            border: 1px solid var(--border);
-            border-radius: 0;
+            border: 2px solid var(--cor-borda);
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border 0.3s;
-            font-family: 'Inter', sans-serif;
-            background-color: white;
-            color: var(--text);
+            transition: var(--transicao);
         }
-        
+
         .form-control:focus {
-            border-color: var(--secondary);
             outline: none;
+            border-color: var(--cor-primaria);
         }
-        
+
         textarea.form-control {
             min-height: 150px;
             resize: vertical;
         }
-        
-        /* Footer */
+
+        /* ===== FOOTER ===== */
         footer {
-            background-color: var(--dark);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 80px 0 20px;
+            background-color: #1a1a2e;
+            color: #aaa;
+            padding: 70px 0 30px;
         }
-        
+
         .footer-content {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 50px;
             margin-bottom: 50px;
         }
-        
-        .footer-logo {
-            font-size: 1.8rem;
-            font-weight: 700;
+
+        .footer-col h3 {
             color: white;
-            margin-bottom: 20px;
-            display: inline-block;
-            font-family: 'Playfair Display', serif;
-            letter-spacing: 2px;
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
         }
-        
-        .footer-logo span {
-            color: var(--secondary);
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--cor-primaria);
+            bottom: 0;
+            left: 0;
         }
-        
-        .footer-info p {
-            margin-bottom: 15px;
-            opacity: 0.8;
-            max-width: 300px;
+
+        .footer-links {
+            list-style: none;
         }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
+
+        .footer-links li {
+            margin-bottom: 12px;
         }
-        
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 0;
-            color: white;
+
+        .footer-links a {
+            color: #aaa;
             text-decoration: none;
-            transition: all 0.3s;
-            font-size: 1rem;
+            transition: var(--transicao);
         }
-        
-        .social-links a:hover {
-            background-color: var(--secondary);
-            transform: translateY(-3px);
+
+        .footer-links a:hover {
+            color: var(--cor-primaria);
+            padding-left: 5px;
         }
-        
-        .footer-bottom {
+
+        .copyright {
             text-align: center;
             padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            opacity: 0.7;
+            border-top: 1px solid #333;
+            font-size: 0.95rem;
         }
-        
-        /* Responsividade */
+
+        /* ===== RESPONSIVE STYLES ===== */
         @media (max-width: 992px) {
-            .hero-content, .contact-container {
-                flex-direction: column;
+            h1 {
+                font-size: 2.8rem;
             }
             
-            .contact-info, .contact-form {
-                width: 100%;
+            h2 {
+                font-size: 2.4rem;
+            }
+            
+            .hero-content, .sobre-content, .contato-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
             }
             
             .hero {
-                padding: 180px 0 120px;
-                background-attachment: scroll;
+                padding-top: 150px;
             }
             
-            .hero h1 {
-                font-size: 3.2rem;
+            .hero-text p {
+                max-width: 100%;
+            }
+            
+            .sobre-text h2, .contato-info h2 {
+                text-align: center;
+            }
+            
+            .sobre-text h2:after, .contato-info h2:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
             }
         }
-        
+
         @media (max-width: 768px) {
-            section {
-                padding: 80px 0;
+            .menu-toggle {
+                display: block;
             }
             
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
+            nav ul {
+                position: fixed;
+                top: 80px;
                 left: 0;
                 width: 100%;
                 background-color: white;
                 flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-                text-align: center;
-                border-top: 1px solid var(--border);
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.08);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transicao);
+                z-index: 999;
             }
             
-            .nav-links.active {
-                display: flex;
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
             }
             
-            .nav-links li {
+            nav ul li {
                 margin: 15px 0;
             }
             
-            .mobile-menu {
-                display: block;
+            .hero-btns {
+                flex-direction: column;
+                align-items: flex-start;
             }
             
-            .hero {
-                padding: 160px 0 100px;
-            }
-            
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            h2 {
-                font-size: 2.2rem;
+            .portfolio-grid {
+                grid-template-columns: 1fr;
             }
             
             .footer-content {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 gap: 40px;
             }
-            
-            .architects, .services-grid, .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .btn {
-                text-align: center;
-            }
-            
-            .contact-form {
-                padding: 30px;
-            }
         }
-        
-        @media (max-width: 480px) {
-            .container {
-                width: 95%;
+
+        @media (max-width: 576px) {
+            section {
+                padding: 70px 0;
             }
             
-            .hero h1 {
-                font-size: 2.2rem;
+            h1 {
+                font-size: 2.3rem;
             }
             
             h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
-            .architect, .service-item {
-                padding: 30px 20px;
+            .contato-form {
+                padding: 25px;
             }
             
-            .contact-form {
-                padding: 25px 20px;
+            .btn {
+                padding: 12px 30px;
             }
-        }
-        
-        /* Animações */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .fade-in-up {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-        
-        /* Separador decorativo */
-        .section-divider {
-            height: 1px;
-            width: 100px;
-            background-color: var(--secondary);
-            margin: 40px auto;
         }
     </style>
 </head>
 <body>
-    <!-- Header e Navegação -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">Arquitetura<span>&</span>Design</a>
-                <ul class="nav-links">
-                    <li><a href="#home">Início</a></li>
+    <!-- ===== HEADER ===== -->
+    <header id="header">
+        <div class="container header-content">
+            <a href="#inicio" class="logo">
+                <i class="fas fa-sparkles"></i> Sofia<span>Mendes</span>
+            </a>
+            
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#inicio">Início</a></li>
                     <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#servicos">Serviços</a></li>
-                    <li><a href="#projetos">Projetos</a></li>
+                    <li><a href="#portfolio">Portfólio</a></li>
                     <li><a href="#contato">Contato</a></li>
                 </ul>
-                <div class="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="inicio">
         <div class="container">
-            <div class="hero-content fade-in-up">
-                <h1>Transformando Espaços em Experiências</h1>
-                <p>Arquitetura inovadora e design funcional que refletem a essência de quem você é. Criamos ambientes que harmonizam forma, função e emoção.</p>
-                <div class="hero-buttons">
-                    <a href="#projetos" class="btn">Ver Projetos</a>
-                    <a href="#contato" class="btn btn-secondary">Solicitar Orçamento</a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Design Digital & <span class="destaque">Experiência Criativa</span></h1>
+                    <p>Sou uma designer e desenvolvedora front-end apaixonada por criar experiências digitais únicas, funcionais e visualmente impressionantes que conectam marcas com seu público.</p>
+                    <div class="hero-btns">
+                        <a href="#portfolio" class="btn">Ver Meu Trabalho</a>
+                        <a href="#contato" class="btn btn-outline">Entre em Contato</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Sofia Mendes - Designer Digital" width="600" height="400">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Sobre -->
-    <section id="sobre" class="about">
+    <!-- ===== SOBRE SECTION ===== -->
+    <section class="sobre" id="sobre">
         <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2>Nossa Equipe</h2>
-                    <p>Com mais de 15 anos de experiência no mercado, nossa dupla de arquitetos combina criatividade, técnica e atenção aos detalhes para criar espaços únicos que transcendem expectativas.</p>
+            <div class="sobre-content">
+                <div class="sobre-img">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1061&q=80" alt="Sofia Mendes" width="500" height="600">
+                </div>
+                <div class="sobre-text">
+                    <h2>Sobre Mim</h2>
+                    <p>Olá! Eu sou Sofia Mendes, uma profissional digital com mais de 7 anos de experiência na interseção entre design e tecnologia. Minha jornada começou com ilustração digital e evoluiu para UI/UX design e desenvolvimento front-end.</p>
+                    <p>Acredito que o bom design não é apenas sobre estética, mas sobre resolver problemas e criar conexões emocionais. Trabalho com startups e empresas estabelecidas para transformar suas visões em experiências digitais tangíveis.</p>
+                    <p>Quando não estou codificando ou projetando, você me encontrará explorando novas ferramentas de design, lendo sobre psicologia das cores ou experimentando na cozinha.</p>
+                    
+                    <div class="skills">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>UI/UX Design</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Desenvolvimento Front-end</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Design de Identidade Visual</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PORTFOLIO SECTION ===== -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2>Meu Portfólio</h2>
+            
+            <div class="portfolio-filtros">
+                <button class="filtro-btn ativo" data-filter="todos">Todos</button>
+                <button class="filtro-btn" data-filter="web">Web Design</button>
+                <button class="filtro-btn" data-filter="app">Aplicativos</button>
+                <button class="filtro-btn" data-filter="branding">Branding</button>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Item 1 -->
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Projeto E-commerce" width="400" height="250">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Plataforma E-commerce Moderna</h3>
+                        <p>Design e desenvolvimento de uma plataforma de e-commerce completa com foco na experiência do usuário e conversão.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">UI Design</span>
+                            <span class="tag">Front-end</span>
+                            <span class="tag">Responsivo</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="architects">
-                    <div class="architect fade-in-up">
-                        <div class="architect-img">
-                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Carlos Mendes">
-                        </div>
-                        <h3>Carlos Mendes</h3>
-                        <p>Arquiteto e Urbanista</p>
-                        <p>Mestre em Arquitetura Contemporânea pela Universidade de São Paulo, especializado em design sustentável e integração com o entorno urbano.</p>
+                <!-- Item 2 -->
+                <div class="portfolio-item" data-category="app">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="App de Finanças" width="400" height="250">
                     </div>
-                    <div class="architect fade-in-up">
-                        <div class="architect-img">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Isabela Santos">
+                    <div class="portfolio-info">
+                        <h3>App de Gestão Financeira</h3>
+                        <p>Aplicativo móvel para controle de finanças pessoais com interface intuitiva e relatórios visuais detalhados.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">UX Research</span>
+                            <span class="tag">Mobile App</span>
+                            <span class="tag">Prototipagem</span>
                         </div>
-                        <h3>Isabela Santos</h3>
-                        <p>Arquiteta e Designer de Interiores</p>
-                        <p>Formada pela Faculdade de Arquitetura e Urbanismo do Rio de Janeiro, com especialização em Design de Interiores no Instituto Europeu di Design de Milão.</p>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="portfolio-item" data-category="branding">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1128&q=80" alt="Identidade Visual" width="400" height="250">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Identidade Visual Café Artesanal</h3>
+                        <p>Criação completa de identidade visual para uma rede de cafeterias, incluindo logo, paleta de cores e aplicações.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Branding</span>
+                            <span class="tag">Logo Design</span>
+                            <span class="tag">Direção de Arte</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1115&q=80" alt="Dashboard Analytics" width="400" height="250">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Dashboard de Analytics</h3>
+                        <p>Interface para visualização de dados complexos com foco na clareza e tomada de decisões baseadas em dados.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Data Visualization</span>
+                            <span class="tag">UI/UX</span>
+                            <span class="tag">Web App</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 5 -->
+                <div class="portfolio-item" data-category="app">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="App de Saúde" width="400" height="250">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>App de Acompanhamento de Saúde</h3>
+                        <p>Aplicativo para monitoramento de métricas de saúde com integração a wearables e relatórios personalizados.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Mobile Design</span>
+                            <span class="tag">Saúde</span>
+                            <span class="tag">Interação</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 6 -->
+                <div class="portfolio-item" data-category="branding">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1128&q=80" alt="Rebranding Empresarial" width="400" height="250">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Rebranding Corporativo</h3>
+                        <p>Atualização completa da identidade visual de uma empresa de tecnologia estabelecida há 15 anos.</p>
+                        <div class="portfolio-tags">
+                            <span class="tag">Rebranding</span>
+                            <span class="tag">Sistema Visual</span>
+                            <span class="tag">Estratégia</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Serviços -->
-    <section id="servicos" class="services">
+    <!-- ===== CONTATO SECTION ===== -->
+    <section class="contato" id="contato">
         <div class="container">
-            <h2>Nossos Serviços</h2>
-            <div class="services-grid">
-                <div class="service-item fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-home"></i>
+            <div class="contato-content">
+                <div class="contato-info">
+                    <h2>Vamos Trabalhar Juntos</h2>
+                    <p>Tem um projeto em mente? Estou sempre aberta a discutir novas oportunidades e ideias criativas. Entre em contato e vamos conversar sobre como posso ajudar a trazer sua visão à vida.</p>
+                    
+                    <div class="contato-detalhes">
+                        <div class="detalhe-item">
+                            <div class="detalhe-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="detalhe-text">
+                                <h4>Email</h4>
+                                <p>ola@sofiamendes.design</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detalhe-item">
+                            <div class="detalhe-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="detalhe-text">
+                                <h4>Telefone</h4>
+                                <p>+55 (11) 98765-4321</p>
+                            </div>
+                        </div>
+                        
+                        <div class="detalhe-item">
+                            <div class="detalhe-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="detalhe-text">
+                                <h4>Localização</h4>
+                                <p>São Paulo, Brasil</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Projetos Residenciais</h3>
-                    <p>Criamos residências personalizadas que refletem o estilo de vida e personalidade de cada cliente, do conceito à execução.</p>
-                </div>
-                <div class="service-item fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3>Projetos Comerciais</h3>
-                    <p>Desenvolvemos espaços comerciais funcionais e atraentes que potencializam a experiência do cliente e a produtividade da equipe.</p>
-                </div>
-                <div class="service-item fade-in-up">
-                    <div class="service-icon">
-                        <i class="fas fa-paint-roller"></i>
-                    </div>
-                    <h3>Design de Interiores</h3>
-                    <p>Harmonizamos cores, texturas, iluminação e mobiliário para criar ambientes que equilibram estética, conforto e funcionalidade.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projetos -->
-    <section id="projetos" class="projects">
-        <div class="container">
-            <div class="section-title">
-                <h2>Projetos em Destaque</h2>
-                <p>Conheça alguns dos nossos trabalhos mais recentes que demonstram nossa abordagem única e atenção aos detalhes.</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Residência Moderna">
-                    <div class="project-overlay">
-                        <h3>Residência Moderna</h3>
-                        <p>Projeto residencial com integração total entre ambientes internos e externos</p>
-                    </div>
-                </div>
-                <div class="project-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Escritório Corporativo">
-                    <div class="project-overlay">
-                        <h3>Escritório Corporativo</h3>
-                        <p>Design de interiores para escritório com foco em produtividade e bem-estar</p>
-                    </div>
-                </div>
-                <div class="project-item fade-in-up">
-                    <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Restaurante Contemporâneo">
-                    <div class="project-overlay">
-                        <h3>Restaurante Contemporâneo</h3>
-                        <p>Ambiente gastronômico que combina sofisticação e aconchego</p>
+                    
+                    <div class="redes-sociais">
+                        <a href="#" class="rede-social" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="rede-social" aria-label="Behance">
+                            <i class="fab fa-behance"></i>
+                        </a>
+                        <a href="#" class="rede-social" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="rede-social" aria-label="Dribbble">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contato -->
-    <section id="contato" class="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Entre em Contato</h2>
-                <p>Pronto para transformar sua visão em realidade? Entre em contato para agendar uma consulta.</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3>Informações de Contato</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h4>Endereço</h4>
-                            <p>Av. Paulista, 1234 - Jardins<br>São Paulo - SP, 01310-100</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h4>Telefone</h4>
-                            <p>(11) 3456-7890 / (11) 98765-4321</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h4>E-mail</h4>
-                            <p>contato@arquiteturaedesign.com.br</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div>
-                            <h4>Horário de Atendimento</h4>
-                            <p>Segunda a Sexta: 9h às 18h<br>Sábado: 9h às 13h (sob agendamento)</p>
-                        </div>
-                    </div>
-                    <div class="social-links" style="margin-top: 40px;">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <h3>Solicite um Orçamento</h3>
-                    <form id="contactForm">
+                
+                <div class="contato-form">
+                    <form id="formContato">
                         <div class="form-group">
-                            <label for="name">Nome Completo</label>
-                            <input type="text" id="name" class="form-control" required>
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" class="form-control" placeholder="Seu nome" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" class="form-control" required>
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="seu.email@exemplo.com" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="phone">Telefone</label>
-                            <input type="tel" id="phone" class="form-control">
+                            <label for="assunto">Assunto</label>
+                            <input type="text" id="assunto" class="form-control" placeholder="Sobre o que gostaria de conversar?" required>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="service">Tipo de Projeto</label>
-                            <select id="service" class="form-control" required>
-                                <option value="">Selecione uma opção</option>
-                                <option value="residencial">Projeto Residencial</option>
-                                <option value="comercial">Projeto Comercial</option>
-                                <option value="interiores">Design de Interiores</option>
-                                <option value="consultoria">Consultoria</option>
-                            </select>
+                            <label for="mensagem">Mensagem</label>
+                            <textarea id="mensagem" class="form-control" placeholder="Descreva seu projeto ou ideia..." required></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Mensagem</label>
-                            <textarea id="message" class="form-control" placeholder="Descreva brevemente seu projeto..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Enviar Solicitação</button>
+                        
+                        <button type="submit" class="btn">Enviar Mensagem</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- ===== FOOTER ===== -->
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-info">
-                    <a href="#" class="footer-logo">Arquitetura<span>&</span>Design</a>
-                    <p>Transformando visões em espaços extraordinários através da arquitetura e design inovadores.</p>
-                    <p>CNPJ: 12.345.678/0001-90</p>
+                <div class="footer-col">
+                    <h3>Sofia Mendes</h3>
+                    <p>Designer digital e desenvolvedora front-end especializada em criar experiências digitais memoráveis e funcionais que conectam marcas com pessoas.</p>
                 </div>
-                <div>
+                
+                <div class="footer-col">
                     <h3>Links Rápidos</h3>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 10px;"><a href="#home" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s;">Início</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#sobre" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s;">Sobre</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#servicos" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s;">Serviços</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#projetos" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s;">Projetos</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#contato" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.3s;">Contato</a></li>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="#portfolio">Portfólio</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Serviços</h3>
+                    <ul class="footer-links">
+                        <li><a href="#portfolio">UI/UX Design</a></li>
+                        <li><a href="#portfolio">Desenvolvimento Front-end</a></li>
+                        <li><a href="#portfolio">Identidade Visual</a></li>
+                        <li><a href="#portfolio">Consultoria Digital</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Arquitetura & Design - Todos os direitos reservados</p>
-                <p style="margin-top: 10px;">Desenvolvido com excelência e paixão pela arquitetura</p>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> Sofia Mendes. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Menu mobile
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
+        // ===== MENU MOBILE =====
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            menuToggle.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
         });
         
         // Fechar menu ao clicar em um link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelector('.nav-links').classList.remove('active');
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
             });
         });
         
-        // Form submission (apenas exemplo)
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Obrigado pelo seu interesse! Em breve entraremos em contato para discutir seu projeto.');
-            this.reset();
+        // ===== FILTRO PORTFÓLIO =====
+        const filterButtons = document.querySelectorAll('.filtro-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove classe ativo de todos os botões
+                filterButtons.forEach(btn => btn.classList.remove('ativo'));
+                // Adiciona classe ativo ao botão clicado
+                button.classList.add('ativo');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'todos' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
         });
         
-        // Fechar menu ao rolar a página (mobile)
-        window.addEventListener('scroll', function() {
-            if (window.innerWidth <= 768) {
-                document.querySelector('.nav-links').classList.remove('active');
-            }
+        // ===== ANIMAÇÃO BARRAS DE HABILIDADE =====
+        function animateSkills() {
+            const skillBars = document.querySelectorAll('.skill-progress');
             
-            // Header scroll effect
-            if (window.scrollY > 100) {
-                document.querySelector('header').style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-                document.querySelector('header').style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
-            } else {
-                document.querySelector('header').style.boxShadow = '0 2px 20px rgba(0,0,0,0.05)';
-                document.querySelector('header').style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-            }
-            
-            // Animação de elementos ao rolar
-            const fadeElements = document.querySelectorAll('.fade-in-up');
-            fadeElements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.2;
-                
-                if (elementPosition < screenPosition) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
+            skillBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                bar.style.width = width + '%';
+            });
+        }
+        
+        // Executar animação quando a seção sobre estiver visível
+        const observerOptions = {
+            threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateSkills();
                 }
             });
+        }, observerOptions);
+        
+        const sobreSection = document.querySelector('.sobre');
+        if (sobreSection) {
+            observer.observe(sobreSection);
+        }
+        
+        // ===== FORMULÁRIO DE CONTATO =====
+        const contactForm = document.getElementById('formContato');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Coletar dados do formulário
+            const formData = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                assunto: document.getElementById('assunto').value,
+                mensagem: document.getElementById('mensagem').value
+            };
+            
+            // Aqui normalmente enviaria os dados para um servidor
+            // Por enquanto, apenas exibe um alerta
+            alert(`Obrigada, ${formData.nome}! Sua mensagem foi recebida. Entrarei em contato em breve no email ${formData.email}.`);
+            
+            // Limpar formulário
+            contactForm.reset();
         });
         
-        // Inicializar elementos com opacidade 0 para animação
-        document.addEventListener('DOMContentLoaded', function() {
-            const fadeElements = document.querySelectorAll('.fade-in-up');
-            fadeElements.forEach(element => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(30px)';
-                element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        // ===== HEADER SCROLL EFFECT =====
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '15px 0';
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '20px 0';
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+            }
+        });
+        
+        // ===== ATUALIZAR ANO NO FOOTER =====
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // ===== SCROLL SUAVE PARA ÂNCORAS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             });
-            
-            // Trigger scroll para ativar animações iniciais
-            window.dispatchEvent(new Event('scroll'));
         });
     </script>
 </body>
