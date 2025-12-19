@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Camila Benegas — Arquitetura (Exemplo)</title>
+  <title>Mariana Silva — Arquitetura e Interiores</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -38,7 +38,8 @@
     /* Gallery masonry */
     .gallery{max-width:var(--max-width);margin:0 auto;padding:10px 20px 60px}
     .masonry{column-count:3;column-gap:var(--gap)}
-    .masonry img{width:100%;display:block;margin:0 0 var(--gap);border-radius:2px}
+    .masonry img{width:100%;display:block;margin:0 0 var(--gap);border-radius:2px;transition:transform 0.3s ease;cursor:pointer}
+    .masonry img:hover{transform:scale(1.01)}
 
     /* footer */
     footer{border-top:1px solid rgba(0,0,0,0.04);padding:60px 20px;background:#fff}
@@ -51,38 +52,26 @@
     @media (max-width:1000px){.masonry{column-count:2}.hero{height:300px}.tagline{font-size:22px}}
     @media (max-width:640px){.wrap{padding:14px};nav{display:none}.masonry{column-count:1}.tagline{padding:36px 12px;font-size:20px}.brand h1{font-size:20px}}
 
-    /* small helper */
-    .overlay{position:relative}
-    .overlay::after{content:'';position:absolute;left:0;right:0;top:0;bottom:0}
+    /* Modal para imagens */
+    .modal{display:none;position:fixed;z-index:100;padding-top:60px;left:0;top:0;width:100%;height:100%;background-color:rgba(0,0,0,0.9)}
+    .modal-content{margin:auto;display:block;width:80%;max-width:700px}
+    .close{position:absolute;top:15px;right:35px;color:#f1f1f1;font-size:40px;font-weight:bold;cursor:pointer}
+    .close:hover,.close:focus{color:#bbb;text-decoration:none;cursor:pointer}
   </style>
 </head>
 <body>
-
-<!--
-  Exemplo de site base inspirado no layout fornecido.
-  Coloque suas imagens em ./images/ e atualize os nomes ou ajuste os caminhos.
-  Arquivos sugeridos (substitua pelos originais):
-  - images/wood-hero.jpg
-  - images/room-01.jpg
-  - images/room-02.jpg
-  - images/room-03.jpg
-  - images/room-04.jpg
-  - images/room-05.jpg
-  - images/room-06.jpg
--->
 
 <header>
   <div class="wrap">
     <div class="brand">
       <div class="logo" aria-hidden="true">
-        <!-- simples monograma -->
         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M30 18c0 0 0 28 0 34 0 20 28 20 28 0V18" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M70 82c0 0 0-34 0-48" stroke="#000" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <div>
-        <h1>camila benegas</h1>
+        <h1>mariana silva</h1>
         <p>ARQUITETURA</p>
       </div>
     </div>
@@ -97,7 +86,7 @@
   </div>
 </header>
 
-<section class="hero" style="background-image:url('images/wood-hero.jpg')" role="img" aria-label="Foto hero de projeto em madeira">
+<section class="hero" style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')" role="img" aria-label="Sala de estar moderna com iluminação natural">
   <div class="hero-inner">
     <!-- hero vazio intencionalmente para dar impacto à imagem -->
   </div>
@@ -105,51 +94,113 @@
 
 <main>
   <section class="tagline">
-    Arquitetura com alma prática e design que acolhe o cotidiano
+    Criando espaços que harmonizam funcionalidade, beleza e personalidade
   </section>
 
   <section id="projetos" class="gallery">
     <div class="masonry">
-      <img src="images/room-01.jpg" alt="Projeto 1">
-      <img src="images/room-02.jpg" alt="Projeto 2">
-      <img src="images/room-03.jpg" alt="Projeto 3">
-      <img src="images/room-04.jpg" alt="Projeto 4">
-      <img src="images/room-05.jpg" alt="Projeto 5">
-      <img src="images/room-06.jpg" alt="Projeto 6">
-      <!-- adicione mais imagens conforme necessário -->
+      <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Apartamento moderno em São Paulo - Sala de estar">
+      <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cozinha integrada com ilha central">
+      <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Quarto principal com vista para jardim">
+      <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Banheiro com acabamentos em mármore">
+      <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Escritório home office integrado">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Área gourmet com churrasqueira">
+      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Quintal com piscina e área de lazer">
+      <img src="https://images.unsplash.com/photo-1600573472592-401b489a59b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Sala de jantar com mesa para 10 pessoas">
+      <img src="https://images.unsplash.com/photo-1616594039964-ae9021a400a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Varanda com vista panorâmica">
     </div>
+  </section>
+
+  <section id="sobre" style="max-width: var(--max-width); margin: 0 auto; padding: 60px 28px; text-align: center;">
+    <h2 style="font-family: 'Montserrat', sans-serif; font-weight: 300; margin-bottom: 30px;">Sobre o Escritório</h2>
+    <p style="max-width: 700px; margin: 0 auto; line-height: 1.6; color: var(--muted);">
+      Com mais de 12 anos de experiência no mercado, especializamo-nos em projetos residenciais e comerciais 
+      que unem estética contemporânea, funcionalidade e sustentabilidade. Cada projeto é desenvolvido 
+      com atenção aos detalhes e às necessidades específicas de cada cliente.
+    </p>
   </section>
 </main>
 
 <footer id="contato">
   <div class="footer-inner">
     <div class="address">
-      Rua Dr. Franco da Rocha, 137 – 9 andar, Perdizes, São Paulo<br>
-      <strong style="color:var(--accent)">contato@camilabenegas.com.br</strong>
+      <strong>Escritório Mariana Silva Arquitetura</strong><br>
+      Av. Brigadeiro Faria Lima, 2277 - 12º andar, Jardim Paulistano, São Paulo - SP, 01452-000<br>
+      <strong style="color:var(--accent)">contato@marianasilvaarquitetura.com.br</strong><br>
+      Horário de atendimento: Segunda a Sexta, 9h às 18h
     </div>
     <div class="contact">
       <div style="display:flex;gap:10px;align-items:center">
-        <!-- pequenos ícones sociais via SVG -->
         <a href="#" aria-label="Instagram">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.2"/></svg>
+          @marianasilva.arq
         </a>
         <a href="#" aria-label="Pinterest">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.2"/></svg>
+          @marianasilvaarq
         </a>
       </div>
 
-      <a href="tel:+5511942038300">(11) 94203-8300</a>
-      <a href="#" style="background:#fff">Fale Conosco</a>
+      <a href="tel:+5511998877665">(11) 99887-7665</a>
+      <a href="tel:+551135557788">(11) 3555-7788</a>
+      <a href="mailto:contato@marianasilvaarquitetura.com.br" style="background:#fff">Enviar E-mail</a>
     </div>
   </div>
 </footer>
 
-<!-- Script opcional para lazy-loading simples -->
+<!-- Modal para visualização de imagens -->
+<div id="imageModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+
 <script>
-  document.addEventListener('DOMContentLoaded',function(){
-    // trocar src de imagens se usar data-src (facilita lazy-loading)
+  document.addEventListener('DOMContentLoaded', function() {
+    // Lazy loading para imagens
     const imgs = document.querySelectorAll('.masonry img');
-    imgs.forEach(img=>{ if(img.complete) return; img.loading='lazy'; });
+    imgs.forEach(img => {
+      img.loading = 'lazy';
+      // Adiciona funcionalidade de clique para ampliar
+      img.addEventListener('click', function() {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        modal.style.display = 'block';
+        modalImg.src = this.src;
+        modalImg.alt = this.alt;
+      });
+    });
+
+    // Fecha o modal
+    const modal = document.getElementById('imageModal');
+    const span = document.querySelector('.close');
+    
+    span.onclick = function() {
+      modal.style.display = 'none';
+    }
+    
+    // Fecha ao clicar fora da imagem
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    // Scroll suave para âncoras
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if(targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if(targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
   });
 </script>
 
